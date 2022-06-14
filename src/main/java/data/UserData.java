@@ -1,12 +1,16 @@
 package data;
 
 public class UserData {
-  public static String userNameLogin = "standard_user";
-  public static String userPassword = "secret_sauce";
-  public static String emptyString = "";
-  public static String incorrectUsername = "dsagasd%$:'?vxnd23543";
-  public static String incorrectPassword = "234$:'4/2%$:'3dvcv";
-  public static String firstName = "Dmitry";
-  public static String lastName = "Antonov";
-  public static String postalCode = "12345";
+  public static String homePageUrl = "https://useinsider.com/";
+  public static String careerPageUrl = "https://useinsider.com/careers/";
+  public static String qualityAssurancePageUrl = "https://useinsider.com/careers/quality-assurance/";
+  public static String qualityAssuranceJobsPageUrl = "https://useinsider.com/careers/open-positions/?department=qualityassurance";
+
+  public static String homePageTitle = "Insider personalization engine for seamless customer experiences";
+  public static String careersPageTitle = "Insider Careers";
+  public static String qualityAssurancePageTitle = "Insider quality assurance job opportunities";
+  public static String qualityAssuranceJobsPageTitle = "Insider open positions | Insider";
+
+  public static String locationOfQaJobs = "Istanbul, Turkey";
+  public static String department = "Quality Assurance";
 }

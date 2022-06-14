@@ -2,7 +2,6 @@ package pages;
 
 import base.Base;
 import base.Util;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,37 +9,29 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
 
-
-public class HomePage extends Base {
+public class QualityAssurancePage extends Base {
 
   Util util = new Util();
 
-  public HomePage(WebDriver driver) {
+  public QualityAssurancePage(WebDriver driver) {
     this.driver = driver;
     AjaxElementLocatorFactory ajaxElementLocatorFactory = new AjaxElementLocatorFactory(driver, 60);
     PageFactory.initElements(ajaxElementLocatorFactory, this);
   }
 
-  @FindBy(xpath = "//span[text()='More']")
-  WebElement moreMenu;
 
-  @FindBy(xpath = "//h5[text()='Careers']")
-  WebElement careersSection;
+  @FindBy(xpath = "//a[text()='See all QA jobs']")
+  WebElement seeAllQaJobsButton;
 
 
-  public void verifyHomePage(String expectedUrl, String expectedTitle) {
-    util.waitForPageLoaded(driver);
+  public void verifyQualityAssurancePage(String expectedUrl, String expectedTitle) {
     Assert.assertEquals(driver.getCurrentUrl(), expectedUrl, "Url is not correct");
     Assert.assertEquals(driver.getTitle(), expectedTitle, "Title is not correct");
-    Assert.assertTrue(moreMenu.isDisplayed(), "More menu item is not displayed");
-    System.out.println("HomePage is displayed correctly");
+    Assert.assertTrue(seeAllQaJobsButton.isDisplayed(), "See all QA jobs button is not displayed");
+    System.out.println("QA Page is displayed correctly");
   }
 
-  public void clickOnMoreMenu() {
-    util.clickElement(moreMenu, "More menu item");
-  }
-
-  public void clickOnCareers() {
-    util.clickElement(careersSection, "Careers block");
+  public void clickOnSeeAllQaJobs() {
+    util.clickElement(seeAllQaJobsButton, "See all QA Jobs button");
   }
 }
