@@ -16,6 +16,7 @@ public class YoutubeTest extends Base {
         WebElement element = driver.findElement(By.xpath("//input[@id='search']"));
 
         element.sendKeys("Тестирование");
+
         Thread.sleep(3000);
         element.submit();
 
