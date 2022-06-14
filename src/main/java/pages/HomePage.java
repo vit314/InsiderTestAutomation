@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class HomePage extends Base {
+
     public HomePage(WebDriver driver) {
     AjaxElementLocatorFactory ajaxElementLocatorFactory = new AjaxElementLocatorFactory(driver, 60);
     PageFactory.initElements(ajaxElementLocatorFactory, this);
