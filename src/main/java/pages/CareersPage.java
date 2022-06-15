@@ -53,12 +53,14 @@ public class CareersPage extends Base {
   }
 
   public void clickOnSeeAllTeams() {
+    util.waitForElementClickable(driver, seeAllTeamsButton, 20);
     util.scrollTo(driver, seeAllTeamsButton);
     util.clickByJs(driver, seeAllTeamsButton);
   }
 
   public void clickOnQualityAssurance() {
     util.scrollTo(driver, qualityAssuranceItem);
+    util.waitForElementClickable(driver, qualityAssuranceItem, 20);
     util.clickByJs(driver, qualityAssuranceItem);
   }
 

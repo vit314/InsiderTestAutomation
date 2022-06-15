@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -22,13 +23,20 @@ public class Base {
     public static Util util = new Util();
     public static WebDriver driver;
 
+    @Parameters("browser")
     @BeforeClass
-    public void initializeDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    public void setup(String browser) throws Exception {
+        if (browser.equalsIgnoreCase("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+        } else if (browser.equalsIgnoreCase("chrome")) {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        } else {
+            throw new Exception("Incorrect Browser");
+        }
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @AfterClass
@@ -39,9 +47,9 @@ public class Base {
     @AfterMethod
     public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE) {
-            File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
-                    + Arrays.toString(testResult.getParameters()) +  ".jpg"));
+                    + Arrays.toString(testResult.getParameters()) + ".jpg"));
         }
     }
 
@@ -57,33 +65,6 @@ public class Base {
     public void selectUsingVisibleText(WebElement element, String text) {
         Select select = new Select(element);
         select.selectByVisibleText(text);
-    }
-
-    public void selectByVisibleValue(WebElement element, String text) {
-        Select select = new Select(element);
-        select.selectByValue(text);
-    }
-
-    public void waitForElementVisibility(WebDriver driver, WebElement element, int time) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
-        try {
-            wait.until(ExpectedConditions.visibilityOf(element));
-        } catch (Exception e) {
-            String currentIframe = util.getCurrentFrameName(driver);
-            Assert.fail(
-                    "Current iframe - " + currentIframe + ". Failed wait for element visibility - " + e.getMessage());
-        }
-    }
-
-
-    public boolean isElementVisibility(WebDriver driver, By by, int time) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     public void waitForPageLoaded(WebDriver driver) {

@@ -24,7 +24,8 @@ public class QualityAssurancePage extends Base {
   WebElement seeAllQaJobsButton;
 
 
-  public void verifyQualityAssurancePage(String expectedUrl, String expectedTitle) {
+  public void verifyQualityAssurancePage(String expectedUrl, String expectedTitle) throws InterruptedException {
+    Thread.sleep(10000);
     Assert.assertEquals(driver.getCurrentUrl(), expectedUrl, "Url is not correct");
     Assert.assertEquals(driver.getTitle(), expectedTitle, "Title is not correct");
     Assert.assertTrue(seeAllQaJobsButton.isDisplayed(), "See all QA jobs button is not displayed");
